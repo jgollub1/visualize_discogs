@@ -1,9 +1,10 @@
-import time
-import numpy as np
-import math
 from collections import defaultdict
+import discogs_client
+import math
+import numpy as np
 from plotly.graph_objs import *
 import networkx as nx
+import time
 
 def pol2cart(rho, phi):
     x = rho * np.cos(phi)
@@ -15,6 +16,7 @@ def discog(artist,token):
     # get the artist's id; search for releases
     d = discogs_client.Client('ExampleApplication/0.2',user_token=token)
     a_id = d.search(artist, type='artist')[0].id
+    print a_id
     releases = d.search(str(a_id), type='release')
     r_dict = {}
     collab_dict = defaultdict(list)
@@ -44,7 +46,7 @@ def discog(artist,token):
     collab_dict2 = []
     for key in sorted(collab_dict,key=lambda x:len(collab_dict[x]),reverse=True):
         collab_dict2.append((key,collab_dict[key]))
-    return collab_dict2
+    return [collab for collab in collab_dict2 if collab[0] not in (0,a_id)]
 
 # construct a graph with the artist and top 'n' collaborators
 def construct_g(artist,top_collab):

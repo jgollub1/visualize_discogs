@@ -1,1 +1,8 @@
 # visualize_discogs
+Due in part to the record industry's eclectic nature, there still exists no central listing of all albums ever published. If you search for a particular artist's discography on cduniverse, discogs, gracenote, etc, you may find that no single source lists every recording by that musician (for an example, try searching 'Kurt Rosenwinkel' on the above sources). However, Discogs has come pretty close, boasting over 8 million releases in its database. With plenty of information stored with each listed release, we can use the Discogs API to scrape relevant information about a particular artist's recording history.
+
+For many of us, our relationship with a single artist serves as a starting point for many others. I have discovered many of my favorite musicians over the past few years via albums or live recordings with familiar artists. Who a musician collaborates with also has a huge impact on their own artistic vision. For this reason, knowing an artist's closest collaborators is crucial in understanding their background and convenient in expanding our listening prospects. This project allows us to query Discog's releases database and visualize an artists $n$ most freqent collaborators via a node graph. Instructions on running the code can be found in 'get_started.txt'.
+
+Please provide attribution for any use of this code.
+
+You can reach me at jacobgollub@college.harvard.edu
