@@ -15,9 +15,8 @@ def pol2cart(rho, phi):
 def discog(artist,token):
     # get the artist's id; search for releases
     d = discogs_client.Client('ExampleApplication/0.2',user_token=token)
-    a_id = d.search(artist, type='artist')[0].id
-    print a_id
-    releases = d.search(str(a_id), type='release')
+    artist_id = d.search(artist, type='artist')[0].id
+    releases = d.search(str(artist_id), type='release')
     r_dict = {}
     collab_dict = defaultdict(list)
 
@@ -43,13 +42,14 @@ def discog(artist,token):
     for collab in collab_dict.keys():
         collab_dict[collab] = sorted(collab_dict[collab],key=lambda a:a[1])
 
-    collab_dict2 = []
+    collab_list = []
     for key in sorted(collab_dict,key=lambda x:len(collab_dict[x]),reverse=True):
-        collab_dict2.append((key,collab_dict[key]))
-    return [collab for collab in collab_dict2 if collab[0] not in (0,a_id)]
+        collab_list.append((key,collab_dict[key]))
+    return [collab for collab in collab_list if collab[0] not in (0,artist_id)]
 
 # construct a graph with the artist and top 'n' collaborators
-def construct_g(artist,top_collab):
+def construct_g(artist,top_collab,token):
+	d = discogs_client.Client('ExampleApplication/0.2',user_token=token)
 	G = nx.MultiGraph()
 	G.add_node(0,name=artist,num=0)
 	ann_height = .025
@@ -126,4 +126,4 @@ def construct_g(artist,top_collab):
 	    node_info = '# of connections: '+str(len(G.adj[i+1][0]))
 	    node_info += '<br>' + '<br>'.join([str(tup[1])+': '+str(tup[0]) for tup in top_five[i][1]])
 	    node_trace['text'].append(node_info)
-	return node_trace,edge_trace
+	return node_trace, edge_trace, annots
