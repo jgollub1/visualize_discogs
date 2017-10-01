@@ -3,6 +3,7 @@ import discogs_client
 import math
 import numpy as np
 from plotly.graph_objs import *
+import plotly.plotly as py
 import networkx as nx
 import time
 
@@ -120,10 +121,39 @@ def construct_g(artist,top_collab,token):
 	    node_trace['y'].append(y)
 
 	node_trace['marker']['color'].append(0)
-	for i, node in enumerate(top_five):
+	for i, node in enumerate(top_collab):
 	    node_trace['marker']['color'].append(len(G.adj[i+1][0]))
 	    # add annotation if greater than 0
 	    node_info = '# of connections: '+str(len(G.adj[i+1][0]))
-	    node_info += '<br>' + '<br>'.join([str(tup[1])+': '+str(tup[0]) for tup in top_five[i][1]])
+	    node_info += '<br>' + '<br>'.join([str(tup[1])+': '+str(tup[0]) for tup in top_collab[i][1]])
 	    node_trace['text'].append(node_info)
-	return node_trace, edge_trace, annots
+	#return node_trace, edge_trace, annots
+	return Figure(data=Data([edge_trace, node_trace]),
+             layout=Layout(
+                title=artist + "'s Top Five Collaborators", #'<br>Network graph made with Python',
+                titlefont=dict(size=16),
+                showlegend=False,
+                hovermode='closest',
+                margin=dict(b=20,l=5,r=5,t=40),
+                annotations= annots,
+                xaxis=XAxis(showgrid=False, zeroline=False, showticklabels=False),
+                yaxis=YAxis(showgrid=False, zeroline=False, showticklabels=False)))
+
+# run the above functions to visualize top five collabs
+def visualize(artist,token):
+	collabs = discog(artist,token)
+	top_five = collabs[:5]
+
+	node_trace, edge_trace, annots = construct_g(artist,top_five,token)
+	fig = Figure(data=Data([edge_trace, node_trace]),
+	             layout=Layout(
+	                title=artist + "'s Top Five Collaborators", #'<br>Network graph made with Python',
+	                titlefont=dict(size=16),
+	                showlegend=False,
+	                hovermode='closest',
+	                margin=dict(b=20,l=5,r=5,t=40),
+	                annotations= annots,
+	                xaxis=XAxis(showgrid=False, zeroline=False, showticklabels=False),
+	                yaxis=YAxis(showgrid=False, zeroline=False, showticklabels=False)))
+
+	py.iplot(fig, filename=artist+"'s Collaborators")

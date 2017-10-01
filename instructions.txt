@@ -1,2 +1,4 @@
 
-This project runs on python 2.7. Before running of the scripts, make sure you have installed numpy and networkx, both of which may be downloaded via “pip install”. Then you will want to 
+This project runs on python 2.7. Before running of the scripts, make sure you have installed numpy and networkx, both of which may be downloaded via “pip install”. Then, set up an account with the Discogs API at https://github.com/discogs/discogs_client and paste your token into line 3 of ‘discog_vis.ipynb’. Then, follow the instructions to install the python package for plotly (https://plot.ly/python/getting-started/).
+
+To run a discography query, enter the desired artist’s name into line 4 of ‘discog_vis.ipynb’ and execute the first two cells of code. The resulting visualization will display the artist’s n most frequent collaborators, with node distance inversely proportional to the number of shared album appearances. Hover your mouse over any of the collaborators to see which albums they have worked together on.
