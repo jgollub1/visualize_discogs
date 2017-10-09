@@ -3,6 +3,8 @@ Due to the record industry's eclectic nature, there still exists no central list
 
 For many of us, our relationship with a single artist serves as a starting point for many others. Over the past few years , I have discovered many of my favorite musicians via albums or live recordings with artists I already knew. Who a musician collaborates with also has a huge impact on their artistic vision. For these reasons, knowing an artist's most frequent collaborators is crucial to understanding their background and convenient in expanding our own listening prospects. This project allows us to query Discogs' releases database and visualize an artist's n most frequent collaborators via a node graph, using the open-source packages 'plotly' and 'networkx'. Instructions on running the code can be found in 'instructions.txt'. Since github does not display javascript via Jupyter notebook, sample visualizations may be viewed in your browser through 'examples/sample_collaborations.html'.
 
+![alt text](https://raw.githubusercontent.com/jgollub1/visualize_discogs/examples/png/myron_walden.png)
+
 Please provide attribution for any use of this code.
 
 You can reach me at jacobgollub@college.harvard.edu
